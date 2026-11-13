@@ -8,9 +8,6 @@ step and by the precision it runs in. This package contains the algorithms neede
 computed in a chosen precision, a diagnosis that splits a stalled residual into its parts, a mixed-precision
 Gauss-Newton method, multi-stage training, and the optimizers these are compared with.
 
-**Status.** This release contains the methods and their tests. Experiment drivers and results are not included
-yet. Only small problems have been run so far, on a CPU.
-
 ## Installation
 
 ```bash
@@ -66,22 +63,6 @@ print(problem.relative_error((single.theta,)), problem.relative_error((mixed.the
 
 The scripts in `examples/` log a comparison of the solvers on a small Poisson problem and the checks on the
 linear model.
-
-## Precision emulation
-
-The formats binary32 and binary64 are native. Every other format is emulated in the linear solver by rounding
-double-precision values to the given number of significand bits. The result of each vector operation is rounded
-once, and inner products are accumulated in double precision before they are rounded, so the emulation slightly
-underestimates the error of a true low-precision computation. Overflow, underflow and subnormal numbers are not
-modelled. Residuals and Jacobians are evaluated in binary32 or binary64 only.
-
-## Scope of this release
-
-- `pla.rounding_bound` covers the Poisson and Helmholtz problems (operators up to second order).
-- The Kronecker-factored baseline is a compact variant for the same two problems, without momentum and moving
-  averages.
-- `pla.multistage` is formulated for linear problems.
-- The dense Jacobian limits the problem size to what fits in memory.
 
 ## License
 
